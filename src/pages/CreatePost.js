@@ -55,8 +55,13 @@ function CreatePost() {
         )
             .then((response) => {
                 //console.log(response.data);
-                alert('Posted Successfully');
-                navigate('/'); // return to homepage
+                if (response.data.error) {
+                    alert("You must be logged in to be able to create a post");
+                }
+                else {
+                    alert('Posted Successfully');
+                    navigate('/'); // return to homepage
+                }
             });
     };
 

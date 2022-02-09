@@ -28,7 +28,7 @@ function App() {
   });
 
   useEffect(() => {
-    console.log(process.env.REACT_APP_API_URL);
+    // console.log(process.env.REACT_APP_API_URL);
     // When the page reloads, check if the accessToken stored in the localStorage is verified or not, if verified, this means the user is logged in, so don't allow the autState to initialize to false.
     axios.
       get(`${API_URL}/auth/auth`,
