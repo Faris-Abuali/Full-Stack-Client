@@ -21,9 +21,10 @@ function App() {
   });
 
   useEffect(() => {
+    console.log(process.env.REACT_APP_API_URL);
     // When the page reloads, check if the accessToken stored in the localStorage is verified or not, if verified, this means the user is logged in, so don't allow the autState to initialize to false.
     axios.
-      get('http://localhost:3001/auth/auth',
+      get(`https://full-stack-api-pedrotech-faris.herokuapp.com/auth/auth`,
         {
           // pass the accessToken in the request's header
           headers: {

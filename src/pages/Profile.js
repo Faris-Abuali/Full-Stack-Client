@@ -21,7 +21,7 @@ function Profile() {
         console.log('userId = ' + userId);
         // Get the basic info about this user whose id = userId param:
         await axios
-            .get(`http://localhost:3001/auth/basicInfo/${userId}`)
+            .get(`https://full-stack-api-pedrotech-faris.herokuapp.com/auth/basicInfo/${userId}`)
             .then((response) => {
                 try {
 
@@ -41,7 +41,7 @@ function Profile() {
 
         // Get all posts from the posts table that were posted by this user whose id = userId param:
         await axios
-            .get(`http://localhost:3001/posts/byUserId/${userId}`)
+            .get(`https://full-stack-api-pedrotech-faris.herokuapp.com/posts/byUserId/${userId}`)
             .then((response) => {
                 try {
                     setListOfUserPosts(response.data);

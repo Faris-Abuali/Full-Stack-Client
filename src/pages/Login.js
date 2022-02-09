@@ -22,8 +22,9 @@ function Login() {
             username: username,
             password: password
         }
-        axios.post('http://localhost:3001/auth/login', data)
+        axios.post(`https://full-stack-api-pedrotech-faris.herokuapp.com/auth/login`, data)
             .then((response) => {
+                console.log(`${process.env.REACT_APP_API_URL}auth/login`);
                 //console.log(response.data);
                 if (response.data.error) alert(response.data.error);
                 else {

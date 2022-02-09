@@ -16,7 +16,7 @@ function ChangePassword() {
                 alert('You did not enter the new Password correctly in the confirm field');
             }
             else {
-                axios.put('http://localhost:3001/auth/change-password',
+                axios.put('https://full-stack-api-pedrotech-faris.herokuapp.com/auth/change-password',
                     {
                         oldPassword: oldPassword,
                         newPassword: newPassword

@@ -29,10 +29,11 @@ function Registration() {
     });
     const handleSubmit = (data) => {
         //console.log(data);
-        axios.post('http://localhost:3001/auth', data)
+        axios.post(`https://full-stack-api-pedrotech-faris.herokuapp.com/auth`, data)
             .then((response) => {
-                console.log(response.data.error); // ex: Username already taken
-                console.log(response.data.message); // ex: Success, user created
+                console.log(process.env.REACT_APP_API_URL);
+                //console.log(response.data.error); // ex: Username already taken
+                //console.log(response.data.message); // ex: Success, user created
                 let feedback;
                 if (response.data.message) {
                     feedback = response.data.message;
@@ -56,6 +57,8 @@ function Registration() {
                 validationSchema={validationSchema}
             >
                 <Form className="formContainer">
+                    <h3>{process.env.REACT_APP_API_URL}</h3>
+                    <h3>{process.env.NODE_ENV}</h3>
                     <label>Username: </label>
                     <ErrorMessage name='username' component='span' />
                     <Field

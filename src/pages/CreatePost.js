@@ -37,7 +37,7 @@ function CreatePost() {
     const handleSubmit = (data) => {
          console.log(data); //data attributes are: title, postText
 
-        axios.post('http://localhost:3001/posts',
+        axios.post(`https://full-stack-api-pedrotech-faris.herokuapp.com/posts`,
             data,
             {
                 headers: {

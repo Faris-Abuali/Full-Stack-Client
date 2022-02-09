@@ -27,7 +27,7 @@ function Home() {
         else {
             // then the user is logged in
             // Get list of all posts
-            axios.get('http://localhost:3001/posts',
+            axios.get(`https://full-stack-api-pedrotech-faris.herokuapp.com/posts`,
                 {
                     headers: {
                         accessToken: localStorage.getItem('accessToken')
@@ -54,7 +54,7 @@ function Home() {
 
 
         // Get list of Liked Posts' IDs (Posts liked by the currently logged in user)
-        // axios.get('http://localhost:3001/likes/likedPosts',
+        // axios.get(`${process.env.REACT_APP_API_URL}likes/likedPosts`,
         //     {
         //         // Pass the accessToken of the logged in user whom we want to get his liked posts
         //         headers: {
@@ -78,7 +78,7 @@ function Home() {
     const likeAPost = (postId, event) => {
 
         axios
-            .post('http://localhost:3001/likes',
+            .post(`https://full-stack-api-pedrotech-faris.herokuapp.com/likes`,
                 {
                     PostId: postId
                 },

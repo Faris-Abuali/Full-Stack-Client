@@ -21,7 +21,7 @@ function Post() {
         let postNotFound = false;
 
         // Get the post whose id is: id
-        await axios.get(`http://localhost:3001/posts/byId/${id}`)
+        await axios.get(`https://full-stack-api-pedrotech-faris.herokuapp.com/posts/byId/${id}`)
             .then((response) => {
                 // console.log(response.data);
                 if (response.data === null) {
@@ -34,7 +34,7 @@ function Post() {
             });
 
         // Now another get request to get all comments that follow this post whose id is: id
-        await axios.get(`http://localhost:3001/comments/${id}`)
+        await axios.get(`https://full-stack-api-pedrotech-faris.herokuapp.com/comments/${id}`)
             .then((response) => {
                 // console.log(response.data);
                 setComments(response.data);
@@ -57,7 +57,7 @@ function Post() {
         }
         // axios.post(url, dataObject, configObject)
         axios
-            .post(`http://localhost:3001/comments`,
+            .post(`https://full-stack-api-pedrotech-faris.herokuapp.com/comments`,
                 {
                     commentBody: newComment,
                     PostId: id,
@@ -101,7 +101,7 @@ function Post() {
 
     const deleteComment = (id) => {
         axios
-            .delete(`http://localhost:3001/comments/${id}`, {
+            .delete(`https://full-stack-api-pedrotech-faris.herokuapp.com/comments/${id}`, {
                 headers: {
                     //accessToken: sessionStorage.getItem('accessToken')
                     accessToken: localStorage.getItem('accessToken')
@@ -123,7 +123,7 @@ function Post() {
         console.log(deletionConfirmed);
         if (deletionConfirmed) {
             axios.
-                delete(`http://localhost:3001/posts/${postId}`, {
+                delete(`https://full-stack-api-pedrotech-faris.herokuapp.com/posts/${postId}`, {
                     headers: {
                         //accessToken: sessionStorage.getItem('accessToken')
                         accessToken: localStorage.getItem('accessToken')
@@ -156,7 +156,7 @@ function Post() {
             (toBeEdited === 'Body' && newPostBody !== null && newPostBody !== '')
         ) {
             let endpoint = toBeEdited.toLowerCase();
-            axios.put(`http://localhost:3001/posts/${endpoint}`,
+            axios.put(`https://full-stack-api-pedrotech-faris.herokuapp.com/posts/${endpoint}`,
                 {
                     [`new${toBeEdited}`]: toBeEdited === 'Title' ? newTitle : newPostBody,
                     postId: id
