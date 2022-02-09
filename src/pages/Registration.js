@@ -57,8 +57,6 @@ function Registration() {
                 validationSchema={validationSchema}
             >
                 <Form className="formContainer">
-                    <h3>{process.env.REACT_APP_API_URL}</h3>
-                    <h3>{process.env.NODE_ENV}</h3>
                     <label>Username: </label>
                     <ErrorMessage name='username' component='span' />
                     <Field
