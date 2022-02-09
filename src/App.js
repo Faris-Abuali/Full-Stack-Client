@@ -11,6 +11,13 @@ import ChangePassword from './pages/ChangePassword';
 import { AuthContext } from './helpers/AuthContext';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+const config = require('./config/config.json');
+let API_URL;
+if (process.env.NODE_ENV === 'development') {
+  API_URL = config.development.API_URL;
+} else {
+  API_URL = config.production.API_URL;
+}
 
 function App() {
   // a boolean state to check if you are logged in or not 
@@ -24,7 +31,7 @@ function App() {
     console.log(process.env.REACT_APP_API_URL);
     // When the page reloads, check if the accessToken stored in the localStorage is verified or not, if verified, this means the user is logged in, so don't allow the autState to initialize to false.
     axios.
-      get(`https://full-stack-api-pedrotech-faris.herokuapp.com/auth/auth`,
+      get(`${API_URL}/auth/auth`,
         {
           // pass the accessToken in the request's header
           headers: {

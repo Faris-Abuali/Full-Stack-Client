@@ -7,6 +7,14 @@ import { AuthContext } from '../helpers/AuthContext';
 import convertDate from '../helpers/DateUTC';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+const config = require('../config/config.json');
+let API_URL;
+if (process.env.NODE_ENV === 'development') {
+    API_URL = config.development.API_URL;
+} else {
+    API_URL = config.production.API_URL;
+}
+
 
 function Home() {
 
@@ -27,7 +35,7 @@ function Home() {
         else {
             // then the user is logged in
             // Get list of all posts
-            axios.get(`https://full-stack-api-pedrotech-faris.herokuapp.com/posts`,
+            axios.get(`${API_URL}/posts`,
                 {
                     headers: {
                         accessToken: localStorage.getItem('accessToken')
@@ -78,7 +86,7 @@ function Home() {
     const likeAPost = (postId, event) => {
 
         axios
-            .post(`https://full-stack-api-pedrotech-faris.herokuapp.com/likes`,
+            .post(`${API_URL}/likes`,
                 {
                     PostId: postId
                 },

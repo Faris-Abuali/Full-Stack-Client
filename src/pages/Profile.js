@@ -4,6 +4,14 @@ import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import convertDate from '../helpers/DateUTC'
 import { AuthContext } from '../helpers/AuthContext';
+const config = require('../config/config.json');
+let API_URL;
+if (process.env.NODE_ENV === 'development') {
+    API_URL = config.development.API_URL;
+} else {
+    API_URL = config.production.API_URL;
+}
+
 
 function Profile() {
     const { authState } = useContext(AuthContext);
@@ -21,7 +29,7 @@ function Profile() {
         console.log('userId = ' + userId);
         // Get the basic info about this user whose id = userId param:
         await axios
-            .get(`https://full-stack-api-pedrotech-faris.herokuapp.com/auth/basicInfo/${userId}`)
+            .get(`${API_URL}/auth/basicInfo/${userId}`)
             .then((response) => {
                 try {
 
@@ -41,7 +49,7 @@ function Profile() {
 
         // Get all posts from the posts table that were posted by this user whose id = userId param:
         await axios
-            .get(`https://full-stack-api-pedrotech-faris.herokuapp.com/posts/byUserId/${userId}`)
+            .get(`${API_URL}/posts/byUserId/${userId}`)
             .then((response) => {
                 try {
                     setListOfUserPosts(response.data);

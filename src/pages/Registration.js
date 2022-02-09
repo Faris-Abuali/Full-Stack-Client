@@ -4,12 +4,17 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'; // form validation
 // allow you to create forms without using the HTML <form> tag and validate them easily
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-
+const config = require('../config/config.json');
+let API_URL;
+if (process.env.NODE_ENV === 'development') {
+    API_URL = config.development.API_URL;
+} else {
+    API_URL = config.production.API_URL;
+}
 
 function Registration() {
-
     const navigate = useNavigate();
-    
+
     const initialValues = {
         username: '',
         password: '',
@@ -29,7 +34,7 @@ function Registration() {
     });
     const handleSubmit = (data) => {
         //console.log(data);
-        axios.post(`https://full-stack-api-pedrotech-faris.herokuapp.com/auth`, data)
+        axios.post(`${API_URL}/auth`, data)
             .then((response) => {
                 console.log(process.env.REACT_APP_API_URL);
                 //console.log(response.data.error); // ex: Username already taken
@@ -38,7 +43,7 @@ function Registration() {
                 if (response.data.message) {
                     feedback = response.data.message;
                 }
-                else if(response.data.error) {
+                else if (response.data.error) {
                     feedback = response.data.error;
                 }
                 alert(feedback);

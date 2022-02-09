@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const config = require('../config/config.json');
+let API_URL;
+if (process.env.NODE_ENV === 'development') {
+    API_URL = config.development.API_URL;
+} else {
+    API_URL = config.production.API_URL;
+}
+
 
 function ChangePassword() {
     const [oldPassword, setOldPassword] = useState('');
@@ -16,7 +24,7 @@ function ChangePassword() {
                 alert('You did not enter the new Password correctly in the confirm field');
             }
             else {
-                axios.put('https://full-stack-api-pedrotech-faris.herokuapp.com/auth/change-password',
+                axios.put(`${API_URL}/auth/change-password`,
                     {
                         oldPassword: oldPassword,
                         newPassword: newPassword

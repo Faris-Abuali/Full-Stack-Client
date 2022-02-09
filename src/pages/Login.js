@@ -2,6 +2,14 @@ import React, { useState, useContext } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../helpers/AuthContext';
+const config = require('../config/config.json');
+let API_URL;
+if (process.env.NODE_ENV === 'development') {
+    API_URL = config.development.API_URL;
+} else {
+    API_URL = config.production.API_URL;
+}
+
 
 function Login() {
 
@@ -22,7 +30,7 @@ function Login() {
             username: username,
             password: password
         }
-        axios.post(`https://full-stack-api-pedrotech-faris.herokuapp.com/auth/login`, data)
+        axios.post(`${API_URL}/auth/login`, data)
             .then((response) => {
                 console.log(`${process.env.REACT_APP_API_URL}auth/login`);
                 //console.log(response.data);

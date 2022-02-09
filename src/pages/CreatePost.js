@@ -5,6 +5,14 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'; // form validation
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../helpers/AuthContext';
+const config = require('../config/config.json');
+let API_URL;
+if (process.env.NODE_ENV === 'development') {
+    API_URL = config.development.API_URL;
+} else {
+    API_URL = config.production.API_URL;
+}
+
 
 
 function CreatePost() {
@@ -35,9 +43,9 @@ function CreatePost() {
     });
 
     const handleSubmit = (data) => {
-         console.log(data); //data attributes are: title, postText
+        console.log(data); //data attributes are: title, postText
 
-        axios.post(`https://full-stack-api-pedrotech-faris.herokuapp.com/posts`,
+        axios.post(`${API_URL}/posts`,
             data,
             {
                 headers: {

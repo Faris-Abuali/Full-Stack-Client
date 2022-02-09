@@ -4,7 +4,13 @@ import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../helpers/AuthContext';
 import convertDate from '../helpers/DateUTC'
-
+const config = require('../config/config.json');
+let API_URL;
+if (process.env.NODE_ENV === 'development') {
+    API_URL = config.development.API_URL;
+} else {
+    API_URL = config.production.API_URL;
+}
 
 
 function Post() {
@@ -21,7 +27,7 @@ function Post() {
         let postNotFound = false;
 
         // Get the post whose id is: id
-        await axios.get(`https://full-stack-api-pedrotech-faris.herokuapp.com/posts/byId/${id}`)
+        await axios.get(`${API_URL}/posts/byId/${id}`)
             .then((response) => {
                 // console.log(response.data);
                 if (response.data === null) {
@@ -34,7 +40,7 @@ function Post() {
             });
 
         // Now another get request to get all comments that follow this post whose id is: id
-        await axios.get(`https://full-stack-api-pedrotech-faris.herokuapp.com/comments/${id}`)
+        await axios.get(`${API_URL}/comments/${id}`)
             .then((response) => {
                 // console.log(response.data);
                 setComments(response.data);
@@ -57,7 +63,7 @@ function Post() {
         }
         // axios.post(url, dataObject, configObject)
         axios
-            .post(`https://full-stack-api-pedrotech-faris.herokuapp.com/comments`,
+            .post(`${API_URL}/comments`,
                 {
                     commentBody: newComment,
                     PostId: id,
@@ -101,7 +107,7 @@ function Post() {
 
     const deleteComment = (id) => {
         axios
-            .delete(`https://full-stack-api-pedrotech-faris.herokuapp.com/comments/${id}`, {
+            .delete(`${API_URL}/comments/${id}`, {
                 headers: {
                     //accessToken: sessionStorage.getItem('accessToken')
                     accessToken: localStorage.getItem('accessToken')
@@ -123,7 +129,7 @@ function Post() {
         console.log(deletionConfirmed);
         if (deletionConfirmed) {
             axios.
-                delete(`https://full-stack-api-pedrotech-faris.herokuapp.com/posts/${postId}`, {
+                delete(`${API_URL}/posts/${postId}`, {
                     headers: {
                         //accessToken: sessionStorage.getItem('accessToken')
                         accessToken: localStorage.getItem('accessToken')
@@ -156,7 +162,7 @@ function Post() {
             (toBeEdited === 'Body' && newPostBody !== null && newPostBody !== '')
         ) {
             let endpoint = toBeEdited.toLowerCase();
-            axios.put(`https://full-stack-api-pedrotech-faris.herokuapp.com/posts/${endpoint}`,
+            axios.put(`${API_URL}/posts/${endpoint}`,
                 {
                     [`new${toBeEdited}`]: toBeEdited === 'Title' ? newTitle : newPostBody,
                     postId: id
